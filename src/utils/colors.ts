@@ -1,0 +1,9 @@
+export const COLORFUL = ['#0c7bdc', '#FFc20a', '#20BFB2', '#63BE76', '#E66100', '#0c7bdc', '#d41159', '#4b0092', '#64B5DA', '#c9e5f2'];
+export const BLUE_SCALE = ['#A1D2CE', '#8AD1CB', '#78CAD2', '#62A8AC', '#4CA6AA', '#5497A7', '#50858B', '#254A4F'];
+export const MEDIUM_CYAN = '#3db9bf';
+export const DARK_CYAN = '#077e84';
+export const MEDIUM_OCRE = '#bf9f56';
+export const DARK_ORANGE = '#8c6a1c';
+export const BROWN = '#4c380c';
+export const RED_NAIL = '#ce4b37';
+export const RED_BROKEN_NAIL = '#300802';

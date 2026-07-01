@@ -1,0 +1,22 @@
+Variável,Descrição,Observação
+id,Número de identificação do respondente,Código alfanumérico
+idade,Idade do respondente em anos completos,Número inteiro
+sexo,Sexo biológico do respondente,"0: Feminino, 1: Masculino, 2: Outro, NA: Não quis responder"
+peso,Peso em quilogramas (kg),Número inteiro
+altura,Altura em metros (m),Número decimal
+imc,Índice de Massa Corporal (kg/m2),Número decimal
+curso,Curso em que o respondente alegou estar matriculado,"1: Biomedicina, 2: Enfermagem, 3: Fonoaudiologia, 4: Medicina, 5: Tecnologias"
+fone01,Você utiliza fones de ouvido?,"0: Não, 1: Sim"
+fone02,Com que frequência você usa fones de ouvido?,"1: Uma ou duas vezes/semana, 2: Três a seis vezes/semana, 3: Diariamente, NA: Não se aplica"
+fone03,Quanto tempo por dia você faz uso de fones de ouvido?,"1: Menos de 30 minutos/dia, 2: De 30 minutos a 1 hora/dia, 3: De 1 a 3 horas/dia, 4: Mais de 3 horas/dia, NA: Não se aplica"
+fone04,Você tenta amenizar os ruídos do ambiente aumentando o volume de seus fones de ouvido?,"0: Não, 1: Sim, NA: Não se aplica"
+fone05,Você respeita o alerta emitido pelo seu aparelho informando que o volume de seus fones de ouvido está muito alto?,"0: Não, 1: Sim, NA: Não se aplica"
+fone06,Você tem o costume de higienizar seus fones de ouvido?,"0: Não, 1: Sim, NA: Não se aplica"
+fone07,"Em uma escala de zero (muitíssimo baixo) a dez (muitíssimo alto), qual a nota que você atribui ao volume usado habitualmente em seu aparelho?","Número inteiro entre 0 e 10, NA: Não se aplica"
+habito01,"Você costuma ir a baladas, shows ou cinemas?","0: Não, 1: Sim"
+habito02,Você toca instrumento musical em banda ou orquestra?,"0: Não, 1: Sim"
+habito03,"Você costuma aumentar, gradativamente, o volume da TV ou aparelho de som à medida que o tempo vai passando?","0: Não, 1: Sim"
+habito04,É comum alguém reclamar do volume que você costuma colocar na TV ou aparelho de som?,"0: Não, 1: Sim"
+problema01,Você nota alteração na sua percepção auditiva após o uso de fones de ouvido?,"0: Não, 1: Sim"
+problema02,Você sente dor ou zumbidos após o uso de fones ou atividades sonoras muito intensas?,"0: Não, 1: Sim"
+problema03,"Independente do uso de fones, você costuma sentir dor ou zumbidos no ouvido?","0: Não, 1: Sim"
