@@ -17,7 +17,7 @@ export default function Projeto() {
               conceitos da estatística descritiva e inferencial, além de exercícios.
             </Text>
             <Text mb="sm">
-              Garu Estatística é um aplicativo gratuito, desenvolvido em R/Shiny por
+              Garu Estatística é um aplicativo gratuito, reestruturado em TypeScript e React por
               alunos de graduação e pós-graduação da Unifesp.
             </Text>
             <Text mb="sm">

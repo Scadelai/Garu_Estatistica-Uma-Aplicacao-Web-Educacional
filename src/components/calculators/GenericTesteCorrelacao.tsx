@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 import { DARK_CYAN, MEDIUM_CYAN } from '../../utils/colors';
 import { pearsonCorrelation, spearmanCorrelation, mean, shapiroWilk } from '../../utils/statistics';
-import { pt } from '../../utils/distributions';
+import { pt, qnorm } from '../../utils/distributions';
 import { formatBR, formatPValue } from '../../utils/formatting';
 
 interface GenericTesteCorrelacaoProps {
@@ -24,6 +24,7 @@ export default function GenericTesteCorrelacao({ dataset, numericCols }: Generic
   const [method, setMethod] = useState<string>('Pearson');
   const [varX, setVarX] = useState<string>(numericCols[0] || '');
   const [varY, setVarY] = useState<string>(numericCols[1] || numericCols[0] || '');
+  const [alpha, setAlpha] = useState<number>(0.05);
 
 
   const xyPairs = useMemo(() => {
@@ -63,6 +64,21 @@ export default function GenericTesteCorrelacao({ dataset, numericCols }: Generic
     return 2 * (1 - pt(Math.abs(tStat), df));
   }, [tStat, df, n]);
 
+  const { ciLower, ciUpper } = useMemo(() => {
+    if (n < 4 || Math.abs(r) === 1) return { ciLower: null, ciUpper: null };
+    const z = 0.5 * Math.log((1 + r) / (1 - r));
+    const se = 1 / Math.sqrt(n - 3);
+    const zAlpha = qnorm(1 - alpha / 2);
+    
+    const zLower = z - zAlpha * se;
+    const zUpper = z + zAlpha * se;
+    
+    const lower = (Math.exp(2 * zLower) - 1) / (Math.exp(2 * zLower) + 1);
+    const upper = (Math.exp(2 * zUpper) - 1) / (Math.exp(2 * zUpper) + 1);
+    
+    return { ciLower: lower, ciUpper: upper };
+  }, [r, n, alpha]);
+
   const swX = useMemo(() => {
     if (n < 3) return null;
     return shapiroWilk(xVals);
@@ -98,7 +114,7 @@ export default function GenericTesteCorrelacao({ dataset, numericCols }: Generic
               variáveis numéricas contínuas.
             </Text>
             <Grid>
-              <Grid.Col span={{ base: 12, md: 4 }}>
+              <Grid.Col span={{ base: 12, md: 3 }}>
                 <Select
                   label="Método"
                   data={['Pearson', 'Spearman']}
@@ -106,7 +122,19 @@ export default function GenericTesteCorrelacao({ dataset, numericCols }: Generic
                   onChange={(val) => val && setMethod(val)}
                 />
               </Grid.Col>
-              <Grid.Col span={{ base: 12, md: 4 }}>
+              <Grid.Col span={{ base: 12, md: 3 }}>
+                <Select
+                  label="Nível de Sig. (α)"
+                  data={[
+                    { value: '0.01', label: '1%' },
+                    { value: '0.05', label: '5%' },
+                    { value: '0.10', label: '10%' },
+                  ]}
+                  value={alpha.toString()}
+                  onChange={(val) => val && setAlpha(Number(val))}
+                />
+              </Grid.Col>
+              <Grid.Col span={{ base: 12, md: 3 }}>
                 <Select
                   label="Variável X"
                   data={numericCols.map((c) => ({ value: c, label: c }))}
@@ -114,7 +142,7 @@ export default function GenericTesteCorrelacao({ dataset, numericCols }: Generic
                   onChange={(val) => val && setVarX(val)}
                 />
               </Grid.Col>
-              <Grid.Col span={{ base: 12, md: 4 }}>
+              <Grid.Col span={{ base: 12, md: 3 }}>
                 <Select
                   label="Variável Y"
                   data={numericCols.map((c) => ({ value: c, label: c }))}
@@ -135,7 +163,12 @@ export default function GenericTesteCorrelacao({ dataset, numericCols }: Generic
               ) : (
                 <>
                   <Text size="md" mb={4}>Correlação (r): <b>{formatBR(r, 3)}</b></Text>
-                  <Text size="md" fw={600} mt="md" c={pValue < 0.05 ? DARK_CYAN : 'dimmed'}>
+                  {ciLower !== null && ciUpper !== null && (
+                    <Text size="sm" mb={4} c="dimmed">
+                      IC ({(1 - alpha) * 100}%): [{formatBR(ciLower, 3)}; {formatBR(ciUpper, 3)}]
+                    </Text>
+                  )}
+                  <Text size="md" fw={600} mt="md" c={pValue < alpha ? DARK_CYAN : 'dimmed'}>
                     P-Valor = {formatPValue(pValue, 3)}
                   </Text>
                 </>
@@ -149,13 +182,13 @@ export default function GenericTesteCorrelacao({ dataset, numericCols }: Generic
               ) : (
                 <>
                   <Text size="sm" fw={600} mb={2}>{varX}:</Text>
-                  <Text size="sm" mb={4}>W: {formatBR(swX?.W || 0, 3)} | P: <span style={{ color: (swX?.pValue || 0) < 0.05 ? 'red' : DARK_CYAN }}>{formatPValue(swX?.pValue || 0, 3)}</span></Text>
+                  <Text size="sm" mb={4}>W: {formatBR(swX?.W || 0, 3)} | P: <span style={{ color: (swX?.pValue || 0) < alpha ? 'red' : DARK_CYAN }}>{formatPValue(swX?.pValue || 0, 3)}</span></Text>
                   
                   <Text size="sm" fw={600} mt="sm" mb={2}>{varY}:</Text>
-                  <Text size="sm" mb={4}>W: {formatBR(swY?.W || 0, 3)} | P: <span style={{ color: (swY?.pValue || 0) < 0.05 ? 'red' : DARK_CYAN }}>{formatPValue(swY?.pValue || 0, 3)}</span></Text>
+                  <Text size="sm" mb={4}>W: {formatBR(swY?.W || 0, 3)} | P: <span style={{ color: (swY?.pValue || 0) < alpha ? 'red' : DARK_CYAN }}>{formatPValue(swY?.pValue || 0, 3)}</span></Text>
 
                   <Text size="xs" c="dimmed" mt="md" lh={1.2}>
-                    (P-Valor &lt; 0.05 indica que os dados não seguem uma distribuição normal, sendo recomendado o teste de Spearman).
+                    (P-Valor &lt; {alpha} indica que os dados não seguem uma distribuição normal, sendo recomendado o teste de Spearman).
                   </Text>
                 </>
               )}

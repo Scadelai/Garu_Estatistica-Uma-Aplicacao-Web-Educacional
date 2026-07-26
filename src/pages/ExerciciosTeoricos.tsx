@@ -541,7 +541,21 @@ export default function ExerciciosTeoricos() {
           <Button variant="default" onClick={handlePrev} disabled={current === 0}>
             Questão anterior
           </Button>
-          <Button variant="default" onClick={handleNext}>
+          <Button
+            variant="default"
+            onClick={(e) => {
+              if (!checked[current]) {
+                e.preventDefault();
+              } else {
+                handleNext();
+              }
+            }}
+            data-disabled={!checked[current] || undefined}
+            style={{
+              opacity: !checked[current] ? 0.4 : 1,
+              cursor: !checked[current] ? 'not-allowed' : 'pointer',
+            }}
+          >
             Próxima Questão
           </Button>
         </Group>

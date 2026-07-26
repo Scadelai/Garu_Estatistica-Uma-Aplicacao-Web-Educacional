@@ -270,8 +270,8 @@ export default function GenericTesteT({ dataset, numericCols, factorCols }: Gene
                       />
                       <YAxis label={{ value: 'Densidade', angle: -90, position: 'insideLeft', offset: 10 }} width={80} />
                       <Tooltip formatter={(v: any) => formatBR(v, 3)} labelFormatter={(l: any) => `t = ${formatBR(l, 3)}`} />
-                      <Area type="monotone" dataKey="accept" stroke={ACCEPT_COLOR} fill={ACCEPT_COLOR} fillOpacity={0.6} isAnimationActive={false} />
-                      <Area type="monotone" dataKey="rejection" stroke={REJECTION_COLOR} fill={REJECTION_COLOR} fillOpacity={0.6} isAnimationActive={false} />
+                      <Area type="monotone" dataKey="accept" name="Aceitação" stroke={ACCEPT_COLOR} fill={ACCEPT_COLOR} fillOpacity={0.6} isAnimationActive={false} />
+                      <Area type="monotone" dataKey="rejection" name="Rejeição" stroke={REJECTION_COLOR} fill={REJECTION_COLOR} fillOpacity={0.6} isAnimationActive={false} />
                       <ReferenceLine x={tab1.tObs} stroke="red" strokeWidth={2} label={{ value: 'tObs', position: 'top', fill: 'red' }} />
                     </AreaChart>
                   </ResponsiveContainer>
@@ -351,8 +351,8 @@ export default function GenericTesteT({ dataset, numericCols, factorCols }: Gene
                       />
                       <YAxis label={{ value: 'Densidade', angle: -90, position: 'insideLeft', offset: 10 }} width={80} />
                       <Tooltip formatter={(v: any) => formatBR(v, 3)} labelFormatter={(l: any) => `t = ${formatBR(l, 3)}`} />
-                      <Area type="monotone" dataKey="accept" stroke={ACCEPT_COLOR} fill={ACCEPT_COLOR} fillOpacity={0.6} isAnimationActive={false} />
-                      <Area type="monotone" dataKey="rejection" stroke={REJECTION_COLOR} fill={REJECTION_COLOR} fillOpacity={0.6} isAnimationActive={false} />
+                      <Area type="monotone" dataKey="accept" name="Aceitação" stroke={ACCEPT_COLOR} fill={ACCEPT_COLOR} fillOpacity={0.6} isAnimationActive={false} />
+                      <Area type="monotone" dataKey="rejection" name="Rejeição" stroke={REJECTION_COLOR} fill={REJECTION_COLOR} fillOpacity={0.6} isAnimationActive={false} />
                       <ReferenceLine x={tab2.tObs} stroke="red" strokeWidth={2} label={{ value: 'tObs', position: 'top', fill: 'red' }} />
                     </AreaChart>
                   </ResponsiveContainer>
@@ -434,8 +434,8 @@ export default function GenericTesteT({ dataset, numericCols, factorCols }: Gene
                         />
                         <YAxis label={{ value: 'Densidade', angle: -90, position: 'insideLeft', offset: 10 }} width={80} />
                         <Tooltip formatter={(v: any) => formatBR(Number(v), 3)} labelFormatter={(l: any) => `t = ${formatBR(Number(l), 3)}`} />
-                        <Area type="monotone" dataKey="accept" stroke={ACCEPT_COLOR} fill={ACCEPT_COLOR} fillOpacity={0.6} isAnimationActive={false} />
-                        <Area type="monotone" dataKey="rejection" stroke={REJECTION_COLOR} fill={REJECTION_COLOR} fillOpacity={0.6} isAnimationActive={false} />
+                        <Area type="monotone" dataKey="accept" name="Aceitação" stroke={ACCEPT_COLOR} fill={ACCEPT_COLOR} fillOpacity={0.6} isAnimationActive={false} />
+                        <Area type="monotone" dataKey="rejection" name="Rejeição" stroke={REJECTION_COLOR} fill={REJECTION_COLOR} fillOpacity={0.6} isAnimationActive={false} />
                         <ReferenceLine x={tab3.tObs} stroke="red" strokeWidth={2} label={{ value: 'tObs', position: 'top', fill: 'red' }} />
                       </AreaChart>
                     </ResponsiveContainer>

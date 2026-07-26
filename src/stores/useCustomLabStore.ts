@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export type CustomDatasetRecord = Record<string, string | number | null>;
 
@@ -18,26 +19,33 @@ interface CustomLabState {
   clearCustomDataset: () => void;
 }
 
-export const useCustomLabStore = create<CustomLabState>((set) => ({
-  customDataset: null,
-  fileName: null,
-  numericColumns: [],
-  factorColumns: [],
-  allColumns: [],
-  setCustomDataset: (data, name, numeric, factor, allCols) =>
-    set({
-      customDataset: data,
-      fileName: name,
-      numericColumns: numeric,
-      factorColumns: factor,
-      allColumns: allCols,
-    }),
-  clearCustomDataset: () =>
-    set({
+export const useCustomLabStore = create<CustomLabState>()(
+  persist(
+    (set) => ({
       customDataset: null,
       fileName: null,
       numericColumns: [],
       factorColumns: [],
       allColumns: [],
+      setCustomDataset: (data, name, numeric, factor, allCols) =>
+        set({
+          customDataset: data,
+          fileName: name,
+          numericColumns: numeric,
+          factorColumns: factor,
+          allColumns: allCols,
+        }),
+      clearCustomDataset: () =>
+        set({
+          customDataset: null,
+          fileName: null,
+          numericColumns: [],
+          factorColumns: [],
+          allColumns: [],
+        }),
     }),
-}));
+    {
+      name: 'garu-custom-lab-storage',
+    }
+  )
+);

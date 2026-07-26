@@ -258,9 +258,9 @@ export default function GenericQuiQuadrado({ dataset, factorCols }: GenericQuiQu
                 <XAxis dataKey="x" type="number" tickFormatter={(v: any) => formatBR(v, 1)} label={{ value: 'χ²', position: 'insideBottom', offset: -10 }} height={50} />
                 <YAxis tickFormatter={(v: any) => formatBR(v, 3)} label={{ value: 'Densidade', angle: -90, position: 'insideLeft', offset: 10 }} width={80} />
                 <Tooltip formatter={(v: any) => formatBR(v, 3)} labelFormatter={(v: any) => `x = ${formatBR(Number(v), 3)}`} />
-                <Area type="monotone" dataKey="accept" stroke="none" fill="#bcbcbc" fillOpacity={0.3} />
-                <Area type="monotone" dataKey="rejection" stroke="none" fill={RED_NAIL} fillOpacity={0.4} />
-                <Area type="monotone" dataKey="y" stroke={RED_NAIL} fill="none" strokeWidth={2} />
+                <Area type="monotone" dataKey="accept" name="Aceitação" stroke="none" fill="#bcbcbc" fillOpacity={0.3} />
+                <Area type="monotone" dataKey="rejection" name="Rejeição" stroke="none" fill={RED_NAIL} fillOpacity={0.4} />
+                <Area type="monotone" dataKey="y" name="Densidade" stroke={RED_NAIL} fill="none" strokeWidth={2} />
                 <ReferenceLine
                   x={chiCrit}
                   stroke="#333"
@@ -272,7 +272,7 @@ export default function GenericQuiQuadrado({ dataset, factorCols }: GenericQuiQu
                   x={chi2}
                   stroke="#1c7ed6"
                   strokeWidth={2}
-                  label={{ value: `teste=${formatBR(chi2, 3)}`, position: 'top', fontSize: 10, fill: '#1c7ed6' }}
+                  label={{ value: `teste=${formatBR(chi2, 3)}`, position: 'top', fontSize: 10, fill: '#1c7ed6', dy: Math.abs(chi2 - chiCrit) < (df * 0.5) ? 15 : 0, dx: Math.abs(chi2 - chiCrit) < (df * 0.5) ? -5 : 0, textAnchor: Math.abs(chi2 - chiCrit) < (df * 0.5) ? 'end' : 'middle' }}
                 />
               </AreaChart>
             </ResponsiveContainer>
